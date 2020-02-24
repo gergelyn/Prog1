@@ -6,11 +6,16 @@
 
 int main(void)
 {
-    WINDOW *screen;
     // initscr() function is belongs to curses.h library (ncurses)
     // We are using it to determine the terminal's type and to initialize all curses data structures
-    screen = initscr();
-
+    // stdscr is created by call this function
+    initscr();
+    // noecho() function belongs to curses.h library
+    // Don't echo any keypresses
+    noecho();
+    // curs_set() function belongs to curses.h library
+    // Don't display a cursor
+    curs_set(FALSE);
     // Starting x coordinate
     int x = 0;
     // Starting y coordinate
@@ -28,10 +33,13 @@ int main(void)
 
     for (;;)
     {
+        // clear() function is belongs to curses.h library (ncurses)
+        // We are using it to clear the terminal's screen
+        clear();
         // getmaxyx defines the screen's maximum height(y) and width(x) by
         // passing 3 variables (the screen, the empty maxY variable and the maxX variable)
         // and then set these variables to their value by the getmaxy() and getmaxx() functions
-        getmaxyx(screen, my, mx);
+        getmaxyx(stdscr, my, mx);
 
         // myprintw() function is printing the "O" to the terminal's screen by the x and y coordinates
         mvprintw(y, x, "O");
@@ -66,9 +74,6 @@ int main(void)
         {
             ystep = ystep * -1;
         }
-        // clear() function is belongs to curses.h library (ncurses)
-        // We are using it to clear the terminal's screen
-        clear();
     }
 
     return 0;
